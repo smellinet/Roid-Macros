@@ -215,7 +215,10 @@ function Roids.DoWithConditionals(msg, hook, fixEmptyTargetFunc, targetBeforeAct
     
     if conditionals.target == "mouseover" then
         if not UnitExists("mouseover") then
-            conditionals.target = Roids.mouseoverUnit;
+	   conditionals.target = (GetMouseFocus() and GetMouseFocus().unit)
+	   if not conditionals.target then
+	      conditionals.target = Roids.mouseoverUnit;
+	   end
         end
         if not conditionals.target or (conditionals.target ~= "focus" and not UnitExists(conditionals.target)) then
             return false;
